@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drive;
 
 /**
@@ -22,7 +23,7 @@ import frc.robot.subsystems.Drive;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drive m_robotDrive = new Drive();
-
+  private final Arm m_arm = new Arm();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -39,7 +40,9 @@ public class RobotContainer {
         .a()
         .debounce(0.1)
         .onTrue(new InstantCommand(() -> m_robotDrive.resetEncoders(), m_robotDrive));
-
+    m_arm.setDefaultCommand(new RunCommand(() -> m_arm.setSpeed(0)));
+    m_driverController.leftBumper().whileTrue(new RunCommand(() -> m_arm.setSpeed(1)));
+    m_driverController.rightBumper().whileTrue(new RunCommand(() -> m_arm.setSpeed(-1)));
     // Set drive default command
     m_robotDrive.setDefaultCommand(
         new RunCommand(
@@ -74,6 +77,7 @@ public class RobotContainer {
     return Autos.simpleAuto(m_robotDrive);
 
     // Alternative version of simpleAuto that used chained commands
-    // return m_robotDrive.driveTimedCommand(0.5, 2).andThen(m_robotDrive.driveTimedCommand(-0.5, 1));
+    // return m_robotDrive.driveTimedCommand(0.5, 2).andThen(m_robotDrive.driveTimedCommand(-0.5,
+    // 1));
   }
 }

@@ -18,9 +18,14 @@ public final class Constants {
     public static final double kDriveDeadband = 0.05;
   }
 
+  public static class ArmConstants {
+    public static int KArmCanId = 0; // TODO add correct can ID
+    public static double armSpeed = 0.5;
+  }
+
   public static class DriveConstants {
     // SPARK MAX CAN IDs
-    public static final int kLeftDriveCanId = 1;
+    public static final int kLeftDriveCanId = 3;
     public static final int kRightDriveCanId = 2;
   }
 }
