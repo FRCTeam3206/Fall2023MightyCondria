@@ -74,7 +74,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.simpleAuto(m_robotDrive);
+    return Autos.DriveTimed(0.5, 2, m_robotDrive);
 
     // Alternative version of simpleAuto that used chained commands
     // return m_robotDrive.driveTimedCommand(0.5, 2).andThen(m_robotDrive.driveTimedCommand(-0.5,
